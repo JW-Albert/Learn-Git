@@ -2,10 +2,17 @@
 
 set -e
 
-# 只在 TERM 環境變數存在時執行 clear（避免在 CI/CD 環境中出錯）
-if [ -n "$TERM" ]; then
-    clear || true
-fi
+# 安全地執行 clear 命令（在 CI/CD 環境中會自動跳過）
+safe_clear() {
+    if [ -t 1 ] && [ -n "$TERM" ] && command -v clear >/dev/null 2>&1; then
+        clear 2>/dev/null || true
+    fi
+}
+
+# 執行清屏（在 CI/CD 環境中會自動跳過）
+safe_clear
+
+python3 -m venv venv
 
 source venv/bin/activate
 
@@ -16,9 +23,7 @@ echo "pytest" > requirements.txt
 
 pip install -r requirements.txt
 
-# 只在 TERM 環境變數存在時執行 clear（避免在 CI/CD 環境中出錯）
-if [ -n "$TERM" ]; then
-    clear || true
-fi
+# 執行清屏（在 CI/CD 環境中會自動跳過）
+safe_clear
 
 pytest tests

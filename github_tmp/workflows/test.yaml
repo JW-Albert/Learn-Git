@@ -20,5 +20,7 @@ jobs:
         with:
           python-version: "3.14"
       - name: Run tests
+        env:
+          TERM: dumb
         run: |
           ./pytest.sh

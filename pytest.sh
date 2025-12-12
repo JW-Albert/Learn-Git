@@ -2,7 +2,8 @@
 
 set -e
 
-clear
+# 只在 TERM 環境變數存在時執行 clear（避免在 CI/CD 環境中出錯）
+[ -n "$TERM" ] && clear
 
 source venv/bin/activate
 
@@ -13,6 +14,7 @@ echo "pytest" > requirements.txt
 
 pip install -r requirements.txt
 
-clear
+# 只在 TERM 環境變數存在時執行 clear（避免在 CI/CD 環境中出錯）
+[ -n "$TERM" ] && clear
 
 pytest tests

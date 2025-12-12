@@ -15,6 +15,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
+      - name: Python3
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.14"
       - name: Run tests
         env:
           TERM: dumb

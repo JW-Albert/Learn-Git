@@ -23,10 +23,9 @@ jobs:
           repository: ${{ variables.REPOSITORY }}
           source: .
           target: /home/{{ secrets.SERVER_USERNAME }}/{{ variables.REPOSITORY }}
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.14"
       - name: Deploy
+        env:
+          TERM: dumb
         run: |
+          ./env.sh
           ./deploy.sh

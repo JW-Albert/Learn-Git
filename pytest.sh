@@ -19,11 +19,11 @@ source venv/bin/activate
 echo "[pytest]
 pythonpath = src" > pytest.ini
 
-echo "pytest" > requirements.txt
-
-pip install -r requirements.txt
-
 # 執行清屏（在 CI/CD 環境中會自動跳過）
 safe_clear
 
 pytest tests
+
+deactivate
+
+rm pytest.ini

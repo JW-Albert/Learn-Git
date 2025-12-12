@@ -12,8 +12,6 @@ safe_clear() {
 # 執行清屏（在 CI/CD 環境中會自動跳過）
 safe_clear
 
-python3 -m venv venv
-
 source venv/bin/activate
 
 echo "[pytest]

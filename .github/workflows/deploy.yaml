@@ -20,13 +20,11 @@ jobs:
           port: ${{ secrets.SERVER_PORT }}
           username: ${{ secrets.SERVER_USERNAME }}
           password: ${{ secrets.SERVER_PASSWORD }}
-          repository: ${{ variables.REPOSITORY }}
-          source: .
-          target: /home/{{ secrets.SERVER_USERNAME }}/{{ variables.REPOSITORY }}
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.14"
+          source: "./"
+          target: "/home/${{ secrets.SERVER_USERNAME }}/${{ vars.REPOSITORY }}"
       - name: Deploy
+        env:
+          TERM: dumb
         run: |
+          ./env.sh
           ./deploy.sh
